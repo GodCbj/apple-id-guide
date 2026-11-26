@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>美区 Apple ID 注册与充值完全指南</title>
+  <meta name="description" content="从零注册美区 Apple ID、用支付宝购买 Apple 礼品卡、设置免税账单地址到兑换余额的完整图文教程。" />
+  <meta name="author" content="JaceChai" />
+  <meta property="og:title" content="美区 Apple ID 注册与充值完全指南" />
+  <meta property="og:description" content="注册 · 礼品卡 · 免税地址 · 兑换 —— 一步一图，跟着做就对了。" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🍎</text></svg>" />
+  <style>
+    /* ========== Design Tokens (light default, follows system) ========== */
+    :root {
+      --bg: #ffffff;
+      --bg-soft: #f7f8fa;
+      --surface: #ffffff;
+      --text: #10151c;
+      --text-2: #4b5563;
+      --text-3: #8a94a3;
+      --accent: #4f46e5;
+      --accent-2: #2563eb;
+      --accent-soft: #eef2ff;
+      --mint: #059669;
+      --mint-soft: #ecfdf5;
+      --amber: #b45309;
+      --amber-soft: #fffbeb;
+      --rose: #be123c;
+      --rose-soft: #fff1f2;
+      --border: #e6e9ef;
+      --shadow: 0 1px 2px rgba(16,21,28,.04), 0 10px 32px rgba(16,21,28,.06);
+      --radius: 18px;
+      --font: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Segoe UI", sans-serif;
+      --mono: "SF Mono", "JetBrains Mono", Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --bg-soft: #131922;
+        --surface: #161d27;
+        --text: #e8edf4;
+        --text-2: #aab4c2;
+        --text-3: #6b7686;
+        --accent: #818cf8;
+        --accent-2: #60a5fa;
+        --accent-soft: #1e2440;
+        --mint: #34d399;
+        --mint-soft: #0c2a22;
+        --amber: #fbbf24;
+        --amber-soft: #2b2312;
+        --rose: #fb7185;
+        --rose-soft: #2b1418;
+        --border: #242d3a;
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 10px 32px rgba(0,0,0,.35);
+      }
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 76px; }
+    body {
+      font-family: var(--font); background: var(--bg); color: var(--text);
+      line-height: 1.8; -webkit-font-smoothing: antialiased;
+      transition: background .3s, color .3s;
+    }
+    ::selection { background: var(--accent); color: #fff; }
+    a { color: var(--accent-2); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* ===== 顶部滚动进度 ===== */
+    #progress { position: fixed; top: 0; left: 0; height: 3px; width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2)); z-index: 200; transition: width .08s linear; }
+
+    /* ===== 导航 ===== */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      background: color-mix(in srgb, var(--bg) 82%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1080px; margin: 0 auto; padding: 13px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 750; font-size: 16px; color: var(--text); white-space: nowrap; }
+    .brand:hover { text-decoration: none; }
+    .brand .logo { width: 30px; height: 30px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: grid; place-items: center; font-size: 17px; }
+    .nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+    .nav-links a {
+      font-size: 13.5px; color: var(--text-2); padding: 6px 12px; border-radius: 9px;
+      transition: background .15s, color .15s;
+    }
+    .nav-links a:hover, .nav-links a.active { background: var(--accent-soft); color: var(--accent); text-decoration: none; }
+    @media (max-width: 820px) { .nav-links { display: none; } }
+
+    /* ===== 布局 ===== */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+    /* ===== Hero ===== */
+    .hero { padding: 76px 0 56px; position: relative; overflow: hidden; }
+    .hero::before {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(520px 280px at 88% 0%, color-mix(in srgb, var(--accent) 13%, transparent), transparent),
+        radial-gradient(460px 260px at 5% 100%, color-mix(in srgb, var(--mint) 10%, transparent), transparent);
+    }
+    .hero .wrap { position: relative; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 650;
+      color: var(--accent); background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
+      padding: 6px 14px; border-radius: 999px; margin-bottom: 22px;
+    }
+    .eyebrow .spark { animation: blink 1.6s ease-in-out infinite; }
+    @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+    h1 { font-size: clamp(32px, 5.4vw, 50px); line-height: 1.2; letter-spacing: -.02em; font-weight: 820; margin-bottom: 18px; }
+    h1 .grad { background: linear-gradient(100deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+    .lead { font-size: clamp(15px, 2vw, 18px); color: var(--text-2); max-width: 660px; margin-bottom: 26px; }
+    .meta-row { display: flex; gap: 22px; flex-wrap: wrap; }
+    .meta { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text-2); }
+    .meta .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+      background: var(--bg-soft); border: 1px solid var(--border); font-size: 16px; }
+    .meta b { color: var(--text); font-weight: 700; }
+
+    /* ===== 通用 section ===== */
+    section { padding: 52px 0; }
+    .sec-head { margin-bottom: 26px; }
+    .sec-kicker { font-family: var(--mono); font-size: 12.5px; letter-spacing: .1em; color: var(--accent); margin-bottom: 6px; }
+    .sec-head h2 { font-size: 26px; font-weight: 780; letter-spacing: -.01em; }
+
+    /* ===== 概览卡片 ===== */
+    .overview { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+    @media (max-width: 820px) { .overview { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .overview { grid-template-columns: 1fr; } }
+    .ov-card {
+      display: block; background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);
+      transition: transform .18s, border-color .18s;
+    }
+    .ov-card:hover { transform: translateY(-3px); border-color: color-mix(in srgb, var(--accent) 45%, var(--border)); text-decoration: none; }
+    .ov-num { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--accent); }
+    .ov-card h3 { font-size: 15.5px; margin: 8px 0 4px; color: var(--text); }
+    .ov-card p { font-size: 13px; color: var(--text-3); line-height: 1.6; }
+    .ov-ico { font-size: 24px; margin-bottom: 6px; display: block; }
+
+    /* ===== 步骤块 ===== */
+    .step { border-top: 1px solid var(--border); }
+    .step-head { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+    .step-badge {
+      flex: 0 0 auto; width: 46px; height: 46px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); color: #fff;
+      display: grid; place-items: center; font-family: var(--mono); font-weight: 800; font-size: 17px;
+      box-shadow: 0 6px 18px color-mix(in srgb, var(--accent) 30%, transparent);
+    }
+    .step-head h2 { font-size: 23px; font-weight: 780; margin-top: 2px; }
+    .step-head .sub { color: var(--text-3); font-size: 14px; margin-top: 2px; }
+
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 26px; box-shadow: var(--shadow); margin-bottom: 18px; }
+
+    /* 视频容器 */
+    .video-box { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden;
+      background: #000; box-shadow: var(--shadow); }
+    .video-box iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .video-note { margin-top: 12px; font-size: 13px; color: var(--text-3); display: flex; gap: 8px; align-items: flex-start; }
+
+    /* 有序要点 */
+    .points { list-style: none; counter-reset: pt; }
+    .points li { position: relative; padding: 11px 0 11px 44px; border-bottom: 1px dashed var(--border); font-size: 15px; color: var(--text-2); }
+    .points li:last-child { border-bottom: 0; }
+    .points li::before {
+      counter-increment: pt; content: counter(pt);
+      position: absolute; left: 0; top: 11px; width: 28px; height: 28px; border-radius: 9px;
+      background: var(--accent-soft); color: var(--accent); font-family: var(--mono); font-weight: 700; font-size: 13px;
+      display: grid; place-items: center;
+    }
+    .points li b { color: var(--text); }
+    .points li code, .inline-code { font-family: var(--mono); font-size: .9em; background: var(--bg-soft);
+      border: 1px solid var(--border); padding: 1px 7px; border-radius: 6px; color: var(--accent); }
+
+    /* 图片网格（手机截图） */
+    .shot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+    .shot {
+      background: var(--bg-soft); border: 1px solid var(--border); border-radius: 16px; padding: 14px;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .shot img {
+      width: 100%; max-width: 300px; height: auto; border-radius: 12px; cursor: zoom-in;
+      box-shadow: 0 4px 16px rgba(16,21,28,.1); display: block; transition: transform .15s;
+    }
+    .shot img:hover { transform: scale(1.015); }
+    .shot .cap { font-size: 13px; color: var(--text-2); text-align: center; }
+    .shot .cap b { color: var(--accent); font-family: var(--mono); }
+    .shot-full { grid-column: 1 / -1; }
+
+    /* 提示框 */
+    .callout { display: flex; gap: 14px; padding: 18px 20px; border-radius: 14px; font-size: 14px; line-height: 1.7; margin: 18px 0; }
+    .callout .ci { font-size: 20px; flex: 0 0 auto; line-height: 1.4; }
+    .callout.info { background: var(--accent-soft); color: var(--text-2); border: 1px solid color-mix(in srgb, var(--accent) 16%, transparent); }
+    .callout.tip { background: var(--mint-soft); color: var(--text-2); border: 1px solid color-mix(in srgb, var(--mint) 18%, transparent); }
+    .callout.warn { background: var(--amber-soft); color: var(--text-2); border: 1px solid color-mix(in srgb, var(--amber) 18%, transparent); }
+    .callout b { color: var(--text); }
+
+    /* 免税州 chips */
+    .state-list { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 2px; }
+    .state { font-size: 13px; padding: 5px 12px; border-radius: 999px; background: var(--mint-soft);
+      color: var(--mint); border: 1px solid color-mix(in srgb, var(--mint) 20%, transparent); font-weight: 600; }
+
+    /* 链接按钮 */
+    .link-btn { display: inline-flex; align-items: center; gap: 7px; font-size: 13.5px; font-weight: 650;
+      padding: 8px 15px; border-radius: 10px; background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+    .link-btn:hover { text-decoration: none; filter: brightness(1.07); }
+
+    /* 分隔小标题 */
+    .mini-title { font-size: 14px; font-weight: 750; color: var(--text); margin: 4px 0 12px; display: flex; align-items: center; gap: 8px; }
+    .mini-title .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+
+    /* ===== FAQ ===== */
+    .faq { display: grid; gap: 12px; }
+    details { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 0 20px; box-shadow: var(--shadow); }
+    summary { cursor: pointer; font-weight: 650; font-size: 15px; padding: 17px 0; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+    summary::-webkit-details-marker { display: none; }
+    summary::after { content: "+"; color: var(--accent); font-size: 20px; font-weight: 400; line-height: 1; }
+    details[open] summary::after { content: "−"; }
+    details p { padding: 0 0 17px; color: var(--text-2); font-size: 14px; }
+
+    /* ===== 页脚 ===== */
+    footer { border-top: 1px solid var(--border); margin-top: 30px; padding: 34px 0 46px; text-align: center; color: var(--text-3); font-size: 13px; }
+    footer .disc { max-width: 720px; margin: 0 auto 14px; line-height: 1.7; }
+
+    /* ===== Lightbox ===== */
+    #lightbox { position: fixed; inset: 0; z-index: 300; background: rgba(8,11,16,.9); display: none;
+      align-items: center; justify-content: center; padding: 24px; cursor: zoom-out; }
+    #lightbox.show { display: flex; }
+    #lightbox img { max-width: 100%; max-height: 92vh; border-radius: 12px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+    #lightbox .close { position: absolute; top: 18px; right: 24px; color: #fff; font-size: 30px; cursor: pointer; line-height: 1; }
+
+    /* ===== 回到顶部 ===== */
+    #toTop { position: fixed; bottom: 24px; right: 24px; width: 44px; height: 44px; border-radius: 50%;
+      background: var(--accent); color: #fff; border: 0; font-size: 20px; cursor: pointer; box-shadow: var(--shadow);
+      opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 90; }
+    #toTop.show { opacity: 1; pointer-events: auto; }
+    #toTop:hover { transform: translateY(-3px); }
+
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="progress"></div>
+
+  <!-- 导航 -->
+  <nav>
+    <div class="nav-inner">
+      <a class="brand" href="#top"><span class="logo">🍎</span>美区 Apple ID 指南</a>
+      <div class="nav-links">
+        <a href="#overview">流程概览</a>
+        <a href="#step1">① 注册账号</a>
+        <a href="#step2">② 买礼品卡</a>
+        <a href="#step3">③ 免税地址</a>
+        <a href="#step4">④ 兑换余额</a>
+        <a href="#faq">常见问题</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="top">
+    <div class="wrap">
+      <span class="eyebrow"><span class="spark">✨</span> 从零开始 · 一步一图</span>
+      <h1>美区 Apple ID<br /><span class="grad">注册与充值完全指南</span></h1>
+      <p class="lead">注册美区账号、用支付宝购买 Apple 礼品卡、设置免税账单地址，再把礼品卡兑换成账户余额——照着做，一次搞定。</p>
+      <div class="meta-row">
+        <div class="meta"><span class="ic">⏱️</span><span>预计耗时 <b>约 15 分钟</b></span></div>
+        <div class="meta"><span class="ic">📊</span><span>难度 <b>★★☆☆☆</b></span></div>
+        <div class="meta"><span class="ic">🧩</span><span>共 <b>4 个步骤</b></span></div>
+        <div class="meta"><span class="ic">💳</span><span>支持 <b>支付宝</b> 付款</span></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- 流程概览 -->
+  <section id="overview">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">OVERVIEW</div>
+        <h2>完整流程一览</h2>
+      </div>
+      <div class="overview">
+        <a class="ov-card reveal" href="#step1">
+          <span class="ov-ico">🆔</span><span class="ov-num">STEP 01</span>
+          <h3>注册美区 Apple ID</h3>
+          <p>跟着视频注册一个美国地区的 Apple 账号</p>
+        </a>
+        <a class="ov-card reveal" href="#step2">
+          <span class="ov-ico">🎁</span><span class="ov-num">STEP 02</span>
+          <h3>支付宝买礼品卡</h3>
+          <p>在 PockytShop 用支付宝购买美区 Apple Gift Card</p>
+        </a>
+        <a class="ov-card reveal" href="#step3">
+          <span class="ov-ico">📍</span><span class="ov-num">STEP 03</span>
+          <h3>设置免税地址</h3>
+          <p>把账单地址设为美国免税州，避免额外税费</p>
+        </a>
+        <a class="ov-card reveal" href="#step4">
+          <span class="ov-ico">💰</span><span class="ov-num">STEP 04</span>
+          <h3>兑换成余额</h3>
+          <p>输入兑换码，把礼品卡充值到 Apple 账户</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 1 -->
+  <section class="step" id="step1">
+    <div class="wrap">
+      <div class="step-head reveal">
+        <div class="step-badge">01</div>
+        <div><h2>注册美区 Apple ID</h2><div class="sub">先准备一个地区为美国的 Apple 账号，后面的礼品卡才能充值</div></div>
+      </div>
+
+      <div class="panel reveal">
+        <div class="mini-title"><span class="dot"></span>跟着视频操作（2:30 – 6:45 是关键部分）</div>
+        <div class="video-box">
+          <iframe src="https://www.youtube-nocookie.com/embed/QoX2Xrj2J9Q?start=150&end=405" title="美区 Apple ID 注册教程" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="video-note">
+          <span>ℹ️</span>
+          <span>视频来自 YouTube，部分地区可能无法直接加载。若无法播放，可直接参考下面整理好的文字要点，效果一样。</span>
+        </div>
+      </div>
+
+      <div class="panel reveal">
+        <div class="mini-title"><span class="dot"></span>文字版要点（视频看不了就看这里）</div>
+        <ol class="points">
+          <li>先在 iPhone 上<b>退出当前 Apple ID</b>（设置 → 顶部头像 → 退出登录）。</li>
+          <li>打开 <b>App Store</b>，随便找一个免费 App 点「获取」，在弹窗中选择<b>创建新 Apple ID</b>。</li>
+          <li>填写邮箱（建议用 Gmail / 163 等）、密码、姓名等信息，地区选择 <b>United States（美国）</b>。</li>
+          <li>账单信息里的地址可以先用免税州地址（详见 <a href="#step3">第 3 步</a>），支付方式选择 <b>None（无）</b>。</li>
+          <li>完成邮箱验证码验证后，美区 Apple ID 就注册好了。</li>
+        </ol>
+      </div>
+
+      <div class="callout tip reveal">
+        <span class="ci">💡</span>
+        <div><b>小提示：</b>一个手机号/邮箱尽量只注册一个美区账号；注册后不要频繁切换地区，以免触发苹果的风控验证。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 2 -->
+  <section class="step" id="step2">
+    <div class="wrap">
+      <div class="step-head reveal">
+        <div class="step-badge">02</div>
+        <div><h2>用支付宝购买 Apple 礼品卡</h2><div class="sub">通过支付宝「PockytShop」购买美国区的 Apple Gift Card</div></div>
+      </div>
+
+      <div class="panel reveal">
+        <div class="mini-title"><span class="dot"></span>操作步骤</div>
+        <ol class="points">
+          <li>打开支付宝，把顶部城市切换为<b>旧金山 / 美国</b>，在搜索框搜索 <span class="inline-code">PockytShop</span>。</li>
+          <li>进入「<b>惠出境</b>」频道页面。</li>
+          <li>在页面里找到「<b>大牌礼卡 低至 9 折</b>」的活动横幅并点进去。</li>
+          <li>在礼卡列表中找到 <b>Pockyt / Pockyshop</b>，点击「更多精选」。</li>
+          <li>进入 Pockyt Shop，选择 <b>Apple Gift Card（地区：美国）</b>，选好面额（USD 2～500），用支付宝付款即可。</li>
+        </ol>
+      </div>
+
+      <div class="shot-grid reveal">
+        <div class="shot">
+          <img src="assets/step1-alipay-home.jpg" alt="支付宝首页搜索 PockytShop" loading="lazy" />
+          <div class="cap"><b>2.1</b> 支付宝首页搜索「PockytShop」</div>
+        </div>
+        <div class="shot">
+          <img src="assets/step2-hui-chujing.png" alt="惠出境页面" loading="lazy" />
+          <div class="cap"><b>2.2</b> 进入「惠出境」频道页</div>
+        </div>
+        <div class="shot">
+          <img src="assets/step3-giftcard-banner.png" alt="大牌礼卡活动横幅" loading="lazy" />
+          <div class="cap"><b>2.3</b> 点击「大牌礼卡低至 9 折」横幅</div>
+        </div>
+        <div class="shot">
+          <img src="assets/step4-pockyt-select.png" alt="选择 Pockyt 更多精选" loading="lazy" />
+          <div class="cap"><b>2.4</b> 找到 Pockyt，点「更多精选」</div>
+        </div>
+        <div class="shot">
+          <img src="assets/step5-pockyt-shop.png" alt="Pockyt Shop 选择美国区礼品卡" loading="lazy" />
+          <div class="cap"><b>2.5</b> 选美国区 Apple Gift Card 及面额</div>
+        </div>
+      </div>
+
+      <div class="callout warn reveal">
+        <span class="ci">⚠️</span>
+        <div><b>一定要选「地区：美国」的礼品卡。</b>美区礼品卡只能充值到美区 Apple ID，买错地区无法兑换。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 3 -->
+  <section class="step" id="step3">
+    <div class="wrap">
+      <div class="step-head reveal">
+        <div class="step-badge">03</div>
+        <div><h2>设置免税账单地址</h2><div class="sub">把账号地址设为美国免税州，充值与订阅就不会多收销售税</div></div>
+      </div>
+
+      <div class="panel reveal">
+        <div class="mini-title"><span class="dot"></span>操作步骤</div>
+        <ol class="points">
+          <li>打开 <b>App Store → 右上角账户头像 → 账户设置</b>。</li>
+          <li>找到「<b>账单寄送地址</b>」，把「国家/地区」改为 <b>美国（United States）</b>。</li>
+          <li>去 <a href="https://mockaddress.com/" target="_blank" rel="noopener">mockaddress.com ↗</a> 生成一个美国免税州的地址。</li>
+          <li>把生成的街道、城市、州、邮编填入账单寄送地址并保存。</li>
+        </ol>
+        <div class="callout info" style="margin-bottom:0">
+          <span class="ci">🧾</span>
+          <div>美国部分州<b>免征销售税</b>，用这些州的地址作为账单地址，充值和订阅时就不会被额外加税。常用的免税州：<div class="state-list">
+            <span class="state">Oregon 俄勒冈</span>
+            <span class="state">Delaware 特拉华</span>
+            <span class="state">New Hampshire 新罕布什尔</span>
+            <span class="state">Montana 蒙大拿</span>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="shot-grid reveal">
+        <div class="shot shot-full">
+          <img src="assets/step6-account-settings.png" alt="账户设置中的账单寄送地址与国家地区" loading="lazy" />
+          <div class="cap"><b>3.1</b> 「账单寄送地址」与「国家/地区」改选美国（隐私信息已打码）</div>
+        </div>
+      </div>
+
+      <div style="margin-top:18px" class="reveal">
+        <a class="link-btn" href="https://mockaddress.com/" target="_blank" rel="noopener">🔗 打开 mockaddress.com 生成地址</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEP 4 -->
+  <section class="step" id="step4">
+    <div class="wrap">
+      <div class="step-head reveal">
+        <div class="step-badge">04</div>
+        <div><h2>兑换礼品卡成账户余额</h2><div class="sub">把支付宝买到的兑换码充值进美区 Apple 账户</div></div>
+      </div>
+
+      <div class="panel reveal">
+        <div class="mini-title"><span class="dot"></span>操作步骤</div>
+        <ol class="points">
+          <li>打开 <b>App Store → 账户 → 账户页面</b>，往下找到「<b>兑换充值卡或代码</b>」。</li>
+          <li>在兑换页面选择「<b>手动输入兑换码</b>」。</li>
+          <li>输入在支付宝购买礼品卡后拿到的兑换码（注意区分大小写）。</li>
+          <li>兑换成功后，回到账户页面就能看到<b>余额增加</b>，即可用于订阅 App Store 内的各类服务。</li>
+        </ol>
+      </div>
+
+      <div class="shot-grid reveal">
+        <div class="shot shot-full">
+          <img src="assets/step7-redeem.png" alt="兑换充值卡或代码流程" loading="lazy" />
+          <div class="cap"><b>4.1</b> 账户页「兑换充值卡或代码」→ 手动输入兑换码（金额已打码）</div>
+        </div>
+      </div>
+
+      <div class="callout tip reveal">
+        <span class="ci">🎉</span>
+        <div>兑换完成后，余额会显示在账户页顶部。到这里，美区 Apple ID 的注册、充值和免税设置就全部搞定了。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="sec-kicker">FAQ</div>
+        <h2>常见问题</h2>
+      </div>
+      <div class="faq reveal">
+        <details open>
+          <summary>礼品卡为什么要选「美国地区」？</summary>
+          <p>Apple 礼品卡按地区发行，美区礼品卡只能兑换到美区 Apple ID。买之前务必确认卡片标注「地区：美国 / United States」。</p>
+        </details>
+        <details>
+          <summary>兑换码在哪里查看？</summary>
+          <p>在 Pockyt Shop 购买成功后，兑换码会在订单详情页或你的账户订单记录里显示，复制后到 App Store 手动输入即可。请妥善保管，兑换码泄露可能被他人使用。</p>
+        </details>
+        <details>
+          <summary>为什么要用免税州地址？</summary>
+          <p>美国部分州征收销售税，Apple 会按账单地址所在州计算税费。使用免销售税的州（如 Oregon、Delaware）作为账单地址，可以避免充值/订阅时产生额外费用。</p>
+        </details>
+        <details>
+          <summary>注册或兑换时提示风控怎么办？</summary>
+          <p>避免在短时间内频繁切换地区或多次更换地址。若触发验证，按提示完成邮箱/电话验证，或稍后再试即可。</p>
+        </details>
+        <details>
+          <summary>YouTube 视频打不开怎么办？</summary>
+          <p>本页已把视频的关键内容整理成文字版要点（见第 1 步），按文字步骤操作同样可以完成注册。其余步骤均为图文说明，不依赖视频。</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p class="disc">本教程仅供个人学习与参考，请遵守当地法律法规及 Apple 相关服务条款。页面内截图含个人信息的部分已做脱敏处理。</p>
+      <p>Made with care · 美区 Apple ID 注册与充值完全指南</p>
+    </div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div id="lightbox"><span class="close">×</span><img src="" alt="预览" /></div>
+  <button id="toTop" aria-label="回到顶部">↑</button>
+
+  <script>
+    // 滚动进度条
+    const progress = document.getElementById("progress");
+    const toTop = document.getElementById("toTop");
+    function onScroll() {
+      const h = document.documentElement;
+      const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 || 0;
+      progress.style.width = pct + "%";
+      toTop.classList.toggle("show", h.scrollTop > 400);
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+
+    // 渐入动画
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); } });
+    }, { threshold: 0.08 });
+    document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+    // 导航高亮
+    const links = [...document.querySelectorAll(".nav-links a")];
+    const sections = links.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+    const navIo = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          links.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+        }
+      });
+    }, { rootMargin: "-30% 0px -65% 0px" });
+    sections.forEach((s) => navIo.observe(s));
+
+    // 图片点击放大
+    const lb = document.getElementById("lightbox");
+    const lbImg = lb.querySelector("img");
+    document.querySelectorAll(".shot img").forEach((img) => {
+      img.addEventListener("click", () => { lbImg.src = img.src; lb.classList.add("show"); });
+    });
+    function closeLb() { lb.classList.remove("show"); lbImg.src = ""; }
+    lb.addEventListener("click", closeLb);
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeLb(); });
+  </script>
+</body>
+</html>
