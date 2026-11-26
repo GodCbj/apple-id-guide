@@ -122,6 +122,14 @@
     .meta .ic { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
       background: var(--bg-soft); border: 1px solid var(--border); font-size: 16px; }
     .meta b { color: var(--text); font-weight: 700; }
+    /* Hero 作者署名 */
+    .author-chip { display: inline-flex; align-items: center; gap: 11px; margin-top: 26px; padding: 7px 16px 7px 7px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 999px; box-shadow: var(--shadow); }
+    .author-chip .av { width: 38px; height: 38px; border-radius: 50%; color: #fff; font-weight: 800; font-size: 19px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2)); display: grid; place-items: center; }
+    .author-chip .who { display: flex; flex-direction: column; line-height: 1.35; }
+    .author-chip .who .lb { font-size: 11.5px; color: var(--text-3); letter-spacing: .05em; }
+    .author-chip .who b { font-size: 14.5px; color: var(--text); font-weight: 750; }
 
     /* ===== 通用 section ===== */
     section { padding: 52px 0; }
@@ -285,6 +293,10 @@
         <div class="meta"><span class="ic">📊</span><span>难度 <b>★★☆☆☆</b></span></div>
         <div class="meta"><span class="ic">🧩</span><span>共 <b>4 个步骤</b></span></div>
         <div class="meta"><span class="ic">💳</span><span>支持 <b>支付宝</b> 付款</span></div>
+      </div>
+      <div class="author-chip reveal">
+        <span class="av">j</span>
+        <span class="who"><span class="lb">作者 / AUTHOR</span><b>jacechai</b></span>
       </div>
     </div>
   </header>
